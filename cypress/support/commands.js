@@ -24,4 +24,21 @@ Cypress.Commands.add('cadastrar_usuario' , (nome, email, senha, adm) =>{
                 "administrador": adm
             }
     })
+});
+
+Cypress.Commands.add('cadastrar_produto', (token, nome, preco, descricao, quantidade) =>{
+    cy.request({
+        method: 'POST',
+        url: 'produtos',
+        headers: {authorization: token},
+        body:
+        {
+            "nome": nome,
+            "preco": preco,
+            "descricao": descricao,
+            "quantidade": quantidade
+        }
+    }).then((response) =>{
+        return response.body._id
+    })
 })

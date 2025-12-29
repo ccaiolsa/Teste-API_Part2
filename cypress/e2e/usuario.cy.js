@@ -1,4 +1,5 @@
 /// <reference types= "cypress"/>
+import contrato from '../contratos/usuario.contrato';
 
 describe('Teste API - Funcionalidade usuário', () => {
     
@@ -9,6 +10,12 @@ describe('Teste API - Funcionalidade usuário', () => {
             token = tkn
         })
 
+    });
+
+    it('Validar contrato de usuário com sucesso', () => {
+        cy.request('usuarios').then((response) =>{
+            return contrato.validateAsync(response.body)
+        })
     });
 
     it('GET - Listar usuários com sucesso ', () => {
@@ -70,7 +77,7 @@ describe('Teste API - Funcionalidade usuário', () => {
         
     });
 
-    it.only('PUT - Editar usuário com sucesso', () => {
+    it('PUT - Editar usuário com sucesso', () => {
         let nome_rdm = 'Usuário'+ Math.floor(Math.random() * 1000);
         let email_rdm = 'Email' + Math.floor(Math.random() * 10000)+'@qa.com';
 
